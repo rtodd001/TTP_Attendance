@@ -14,7 +14,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('TPP_CLIENT.json', scope)
 client = gspread.authorize(credentials)
-sheet = client.open('Attendance Sheet TTP').get_worksheet(11)
+
+#sheet = client.open('Attendance Sheet TTP').get_worksheet(11)
+#Should there be multiple sheets?
+sheetDaily = client.open('Attendance Sheet TTP').get_worksheet(13)
+sheetSocial = client.open('Attendance Sheet TTP').get_worksheet(14)
+sheetSeminar = client.open('Attendance Sheet TTP').get_worksheet(15)
+        
 
 #Title Function
 def sheet_title(current_title):
@@ -52,12 +58,17 @@ def data_extraction(input,checkinTime):
 
 #Updating
 
-def update_Sheets(student):
+def update_Sheets(student, state):
     print("Welcome to TTP")
     print(student[1] + " " + student[0])
     if credentials.access_token_expired:
         client.login()  # refreshes the token
-    sheet.append_row(student)
+    if(state == "s"):
+        sheetSocial.append_row(student)
+    elif(state == "w"):
+        sheetSeminar.append_row(student)
+    sheetDaily.append_row(student)
+    
 
 #Clean Sheet (Adjust in Alphabetical order )
 def sheet_Cleaner():

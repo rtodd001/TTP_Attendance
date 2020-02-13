@@ -38,7 +38,7 @@ def sheet_title(current_title):
 def clear():
     #for window use 'cls'
     #for mac use 'clear'
-    sleep(2)
+    #sleep(1)
     os.system('clear')
 
 #Extraction Formula
@@ -64,9 +64,11 @@ def update_Sheets(student, state):
     if credentials.access_token_expired:
         client.login()  # refreshes the token
     if(state == "s"):
-        sheetSocial.append_row(student)
+        if(not checkDuplicates(student, state)):
+            sheetSocial.append_row(student)
     elif(state == "w"):
-        sheetSeminar.append_row(student)
+        if(not checkDuplicates(student, state)):
+            sheetSeminar.append_row(student)
     sheetDaily.append_row(student)
     
 
@@ -83,3 +85,25 @@ def sheet_Cleaner():
 
     sheet.insert_row(currentTitle, 1)
     sheet.resize(len(sheet.get_all_values()))
+
+#Check the special events columns to make sure students are not getting recorded
+#more than once in the same day
+def checkDuplicates(student, state):
+    #Get all the values from the time 
+    if(state=="s"):
+        cell_list = sheetSocial.get_all_values()
+        cell_list = cell_list[1:]
+        #print(cell_list)
+        for i in cell_list:
+            return (student[2]==i[2] and student[3][:9] == i[3][:9])
+        return False
+        #cell = [elem[:9] for elem in cell1]
+    elif(state=="w"):
+        cell_list = sheetSeminar.get_all_values()
+        cell_list = cell_list[1:]
+        for i in cell_list:
+            return (student[2]==i[2] and student[3][:9] == i[3][:9])
+        return False
+    
+
+

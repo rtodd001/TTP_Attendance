@@ -1,6 +1,6 @@
 from TTP_SpreadSheet_Function import *
 
-checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+
 cardUser = ''
 
  #Title adder
@@ -43,7 +43,7 @@ def main():
 
     while True:
         clear()
-
+        checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
 
         # Print out the corresponding message for the state
@@ -110,7 +110,7 @@ def main():
             data = data_extraction(cardUser.upper(),checkinTime)
 
             #Input New Names and Update Information
-            update_Sheets(data)
+            update_Sheets(data, state)
             clear();
 
         else:

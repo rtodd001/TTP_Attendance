@@ -4,8 +4,14 @@ checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 cardUser = ''
 
  #Title adder
-new_title = sheet_title(sheet.row_values(1))
-currentTitle = sheet.row_values(1)
+new_title_daily = sheet_title(sheetDaily.row_values(1))
+currentTitleDaily = sheetDaily.row_values(1)
+
+new_title_social = sheet_title(sheetSocial.row_values(1))
+currentTitleSocial = sheetSocial.row_values(1)
+
+new_title_seminar = sheet_title(sheetSeminar.row_values(1))
+currentTitleSeminar = sheetSeminar.row_values(1)
 
 # Unique messages to identify the state of the swipe
 dailyMess = "Hello! Please Swipe Your Card to sign in: \n"
@@ -14,9 +20,17 @@ seminarMess = "Welcome to the Seminar! Please Swipe Your Card to sign in: \n"
 
 
 def main():
-    if new_title != currentTitle:
-                sheet.delete_row(1)
-                sheet.insert_row(new_title,1)
+    if new_title_daily != currentTitleDaily:
+                sheetDaily.delete_row(1)
+                sheetDaily.insert_row(new_title_daily,1)
+    if new_title_social != currentTitleSocial:
+                sheetSocial.delete_row(1)
+                sheetSocial.insert_row(new_title_social,1)
+    if new_title_seminar != currentTitleSeminar:
+                sheetSeminar.delete_row(1)
+                sheetSeminar.insert_row(new_title_seminar,1)
+    
+
     
     # Keep track of the current state
     # These variables will dictate the population of the Google Sheet
@@ -84,7 +98,8 @@ def main():
             if(completeData):
                 data = [lastName,firstName,sid,checkinTime]
                 print()
-                update_Sheets(data)
+                #Updated function below to handle the new state changes 
+                update_Sheets(data, state)
             clear();
 
         #Card was swiped

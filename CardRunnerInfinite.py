@@ -18,23 +18,6 @@ dailyMess = "Hello! Please Swipe Your Card to sign in: \n"
 studySocailMess = "Study Jam/Social sign in! Please Swipe Your Card to sign in: \n"
 seminarMess = "Welcome to the Seminar! Please Swipe Your Card to sign in: \n"
 
-def menu():
-    while(True):
-        clear()
-        state = input("TTP CARD SCANNER MENU\n\n 1 : Daily/Regular days\n 2 : Social/Study Jams \n 3 : Seminar/Workshops\n\n Enter number and press \"Enter\": ")
-        if(state is '1' or state is '2' or state is '3'):
-            return state
-
-def menuLoop():
-    while(True):
-        clear()
-        state1 = menu()
-        if(state1 == '1'):
-            return 'd'
-        elif(state1 == '2'):
-            return 's'
-        elif(state1 == '3'):
-            return 'w'            
 
 def main():
     if new_title_daily != currentTitleDaily:

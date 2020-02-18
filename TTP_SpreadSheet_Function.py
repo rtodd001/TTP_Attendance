@@ -1,9 +1,8 @@
 import re
-import os
+from os import system
 import datetime
 import gspread
-import pprint
-from collections  import defaultdict
+#from collections  import defaultdict
 from getpass import getpass
 from time import sleep
 from oauth2client.service_account import ServiceAccountCredentials
@@ -21,6 +20,24 @@ sheetDaily = client.open('Attendance Sheet TTP').get_worksheet(13)
 sheetSocial = client.open('Attendance Sheet TTP').get_worksheet(14)
 sheetSeminar = client.open('Attendance Sheet TTP').get_worksheet(15)
         
+def menu():
+    while(True):
+        clear()
+        state = input("TTP CARD SCANNER MENU\n\n 1 : Daily/Regular days\n 2 : Social/Study Jams \n 3 : Seminar/Workshops\n\n Enter number and press \"Enter\": ")
+        if(state is '1' or state is '2' or state is '3'):
+            return state
+
+def menuLoop():
+    while(True):
+        clear()
+        state1 = menu()
+        if(state1 == '1'):
+            return 'd'
+        elif(state1 == '2'):
+            return 's'
+        elif(state1 == '3'):
+            return 'w'            
+
 
 #Title Function
 def sheet_title(current_title):
@@ -39,7 +56,7 @@ def clear():
     #for window use 'cls'
     #for mac use 'clear'
     sleep(1)
-    os.system('clear')
+    system('clear')
 
 #Extraction Formula
 def data_extraction(input,checkinTime):

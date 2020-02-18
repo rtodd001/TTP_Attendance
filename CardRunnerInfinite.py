@@ -15,9 +15,26 @@ currentTitleSeminar = sheetSeminar.row_values(1)
 
 # Unique messages to identify the state of the swipe
 dailyMess = "Hello! Please Swipe Your Card to sign in: \n"
-studySocailMess = "Study Jam sign in! Please Swipe Your Card to sign in: \n"
+studySocailMess = "Study Jam/Social sign in! Please Swipe Your Card to sign in: \n"
 seminarMess = "Welcome to the Seminar! Please Swipe Your Card to sign in: \n"
 
+def menu():
+    while(True):
+        clear()
+        state = input("TTP CARD SCANNER MENU\n\n 1 : Daily/Regular days\n 2 : Social/Study Jams \n 3 : Seminar/Workshops\n\n Enter number and press \"Enter\": ")
+        if(state is '1' or state is '2' or state is '3'):
+            return state
+
+def menuLoop():
+    while(True):
+        clear()
+        state1 = menu()
+        if(state1 == '1'):
+            return 'd'
+        elif(state1 == '2'):
+            return 's'
+        elif(state1 == '3'):
+            return 'w'            
 
 def main():
     if new_title_daily != currentTitleDaily:
@@ -29,7 +46,7 @@ def main():
     if new_title_seminar != currentTitleSeminar:
                 sheetSeminar.delete_row(1)
                 sheetSeminar.insert_row(new_title_seminar,1)
-    
+
 
     
     # Keep track of the current state
@@ -39,7 +56,7 @@ def main():
     # w : Seminar/Workshops
     #
     # Default is Daily/Regular days
-    state = 'd'
+    state = menuLoop()
 
     while True:
         clear()
@@ -48,11 +65,11 @@ def main():
 
         # Print out the corresponding message for the state
         if(state ==  "d"):
-            cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n")
+            cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
         elif(state == "s"):
-            cardUser = getpass("Study Jam sign in! Please Swipe Your Card to sign in: \n")
+            cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
         elif(state == "w"):
-            cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n")
+            cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
         
         temp = cardUser.lower()
 
@@ -61,6 +78,10 @@ def main():
             print("Invalid Swipe..... Please Swipe again")
             clear()
         
+        # Back to main menu
+        elif(temp == "0"):
+            state = menuLoop()
+
         # Change the state based on input
         elif(temp == "d" or temp == "s" or temp == "w"):
             state = cardUser.lower()

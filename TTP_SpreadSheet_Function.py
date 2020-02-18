@@ -38,7 +38,7 @@ def sheet_title(current_title):
 def clear():
     #for window use 'cls'
     #for mac use 'clear'
-    #sleep(1)
+    sleep(1)
     os.system('clear')
 
 #Extraction Formula
@@ -73,18 +73,18 @@ def update_Sheets(student, state):
     
 
 #Clean Sheet (Adjust in Alphabetical order )
-def sheet_Cleaner():
-    currentTitle = sheet.row_values(1)
-    sheet.delete_row(1)
-    sheet_Values = sorted(sheet.get_all_values())
-    sheet.clear()
-    rowindex=1
-    for entry in sheet_Values:
-        sheet.insert_row(entry, rowindex)
-        rowindex +=1
+# def sheet_Cleaner():
+#     currentTitle = sheet.row_values(1)
+#     sheet.delete_row(1)
+#     sheet_Values = sorted(sheet.get_all_values())
+#     sheet.clear()
+#     rowindex=1
+#     for entry in sheet_Values:
+#         sheet.insert_row(entry, rowindex)
+#         rowindex +=1
 
-    sheet.insert_row(currentTitle, 1)
-    sheet.resize(len(sheet.get_all_values()))
+#     sheet.insert_row(currentTitle, 1)
+#     sheet.resize(len(sheet.get_all_values()))
 
 #Check the special events columns to make sure students are not getting recorded
 #more than once in the same day

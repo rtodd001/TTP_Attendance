@@ -72,6 +72,7 @@ def main():
 
         #Manual Entry
         elif(temp == "m"):
+            clear()
             firstName=''
             lastName=''
             sid =''
@@ -104,7 +105,7 @@ def main():
                 print()
                 #Updated function below to handle the new state changes 
                 update_Sheets(data, state)
-            clear();
+            clear()
 
         #Card was swiped
         
@@ -115,7 +116,7 @@ def main():
 
             #Input New Names and Update Information
             update_Sheets(data, state)
-            clear();
+            clear()
 
         else:
             print("Invalid Swipe..... Please Swipe again")

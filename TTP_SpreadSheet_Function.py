@@ -1,5 +1,6 @@
 import re
 from os import system
+from os import name
 import datetime
 import gspread
 #from collections  import defaultdict
@@ -56,7 +57,8 @@ def clear():
     #for window use 'cls'
     #for mac use 'clear'
     sleep(1)
-    system('clear')
+    system('cls' if name == 'nt' else 'clear')
+    #system('clear')
 
 #Extraction Formula
 def data_extraction(input,checkinTime):
@@ -76,6 +78,7 @@ def data_extraction(input,checkinTime):
 #Updating
 
 def update_Sheets(student, state):
+    clear()
     print("Welcome to TTP")
     print(student[1] + " " + student[0])
     if credentials.access_token_expired:

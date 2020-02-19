@@ -1,4 +1,5 @@
 from TTP_SpreadSheet_Function import *
+from cardRunnerFrontEnd import *
 
 
 cardUser = ''
@@ -20,6 +21,8 @@ seminarMess = "Welcome to the Seminar! Please Swipe Your Card to sign in: \n"
 
 
 def main():
+    # window()
+    
     if new_title_daily != currentTitleDaily:
                 sheetDaily.delete_row(1)
                 sheetDaily.insert_row(new_title_daily,1)

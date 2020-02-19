@@ -23,14 +23,14 @@ sheetSeminar = client.open('Attendance Sheet TTP').get_worksheet(15)
         
 def menu():
     while(True):
-        clear()
+        clear(pause=False)
         state = input("TTP CARD SCANNER MENU\n\n 1 : Daily/Regular days\n 2 : Social/Study Jams \n 3 : Seminar/Workshops\n\n Enter number and press \"Enter\": ")
         if(state is '1' or state is '2' or state is '3'):
             return state
 
 def menuLoop():
     while(True):
-        clear()
+        clear(pause=False)
         state1 = menu()
         if(state1 == '1'):
             return 'd'
@@ -53,10 +53,11 @@ def sheet_title(current_title):
 
 
 #clear screen
-def clear():
+def clear(pause = True):
     #for window use 'cls'
     #for mac use 'clear'
-    sleep(1)
+    if(pause):
+        sleep(1)
     system('cls' if name == 'nt' else 'clear')
     #system('clear')
 
@@ -78,7 +79,7 @@ def data_extraction(input,checkinTime):
 #Updating
 
 def update_Sheets(student, state):
-    clear()
+    clear(pause=False)
     print("Welcome to TTP")
     print(student[1] + " " + student[0])
     if credentials.access_token_expired:

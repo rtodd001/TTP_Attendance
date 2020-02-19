@@ -42,7 +42,7 @@ def main():
     state = menuLoop()
 
     while True:
-        clear()
+        clear(pause=False)
         checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
 
@@ -72,7 +72,7 @@ def main():
 
         #Manual Entry
         elif(temp == "m"):
-            clear()
+            clear(pause=False)
             firstName=''
             lastName=''
             sid =''

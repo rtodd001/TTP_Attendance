@@ -1,5 +1,5 @@
 from TTP_SpreadSheet_Function import *
-from cardRunnerFrontEnd import *
+#from cardRunnerFrontEnd import *
 
 
 cardUser = ''
@@ -75,40 +75,7 @@ def main():
 
         #Manual Entry
         elif(temp == "m"):
-            clear(pause=False)
-            firstName=''
-            lastName=''
-            sid =''
-            sid2 =''
-            completeData = False
-            while(True):
-                firstName = input("Please Enter First Name (Press Enter to Continue or q to Exit): ").upper()
-                while(firstName == ''):
-                    firstName = input("Error!! Please Enter First Name Again (Press Enter to Continue or q to Exit): ").upper()
-                if(firstName == 'Q'): break;
-                lastName = input("Please Enter Last Name (Press Enter to Continue or q to Exit): ").upper()
-                while(lastName == ''):
-                    lastName = input("Error!! Please Enter Last Name Again (Press Enter to Continue or q to Exit): ").upper()
-                if(lastName == 'Q'): break;
-                sid = getpass("Please Enter SID  (Press Enter to Continue or q to Exit): ")
-                if(sid == 'q'): break;
-                sid2 = getpass("Please Enter SID again (Press Enter to Continue or q to Exit): ")
-                if(sid2 == 'q'): break;
-                while(sid != sid2):
-                    print("Error!!! SIDs do not match")
-                    sid = getpass("Please Enter SID  (Press Enter to Continue or q to Exit): ")
-                    if(sid == 'q'): break;
-                    sid2 = getpass("Please Enter SID again (Press Enter to Continue or q to Exit): ")
-                    if(sid2 == 'q'): break;
-                if(sid == sid2): completeData = True
-                break;
-                
-            if(completeData):
-                data = [lastName,firstName,sid,checkinTime]
-                print()
-                #Updated function below to handle the new state changes 
-                update_Sheets(data, state)
-            clear()
+            manual(checkinTime,state)
 
         #Card was swiped
         

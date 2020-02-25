@@ -88,6 +88,54 @@ def manual(checkinTime,state):
         update_Sheets(data, state)
     clear()
 
+#Welcome print prompts
+def welcomePrint(state):
+    # Print out the corresponding message for the state
+    if(state ==  "d"):
+        cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+    elif(state == "s"):
+        cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+    elif(state == "w"):
+        cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+    return cardUser
+
+#Bulk work of parsing the card swipe and then recording the data    
+def parseData(cardUser,state,checkinTime):
+    temp = cardUser.lower()
+    #Invalid swipe
+    if(cardUser == '' or not cardUser):
+        print("Invalid Swipe..... Please Swipe again")
+        clear()
+    
+    # Back to main menu
+    elif(temp == "0"):
+        state = menuLoop()
+
+    # Change the state based on input
+    elif(temp == "d" or temp == "s" or temp == "w"):
+        state = cardUser.lower()
+        completeData = False
+
+    #Manual Entry
+    elif(temp == "m"):
+        manual(checkinTime,state)
+
+    #Card was swiped
+    
+    elif cardUser[0] == '%' and cardUser[len(cardUser) -1] == '?':
+
+        #Extraction Current Swipes
+        data = data_extraction(cardUser.upper(),checkinTime)
+
+        #Input New Names and Update Information
+        update_Sheets(data, state)
+        clear()
+
+    else:
+        print("Invalid Swipe..... Please Swipe again")
+        clear()
+
+
 #clear screen
 def clear(pause = True):
     #for window use 'cls'

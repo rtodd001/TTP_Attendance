@@ -14,11 +14,6 @@ currentTitleSocial = sheetSocial.row_values(1)
 new_title_seminar = sheet_title(sheetSeminar.row_values(1))
 currentTitleSeminar = sheetSeminar.row_values(1)
 
-# Unique messages to identify the state of the swipe
-dailyMess = "Hello! Please Swipe Your Card to sign in: \n"
-studySocailMess = "Study Jam/Social sign in! Please Swipe Your Card to sign in: \n"
-seminarMess = "Welcome to the Seminar! Please Swipe Your Card to sign in: \n"
-
 
 def main():
     # window()
@@ -49,48 +44,9 @@ def main():
         checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
 
-        # Print out the corresponding message for the state
-        if(state ==  "d"):
-            cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        elif(state == "s"):
-            cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        elif(state == "w"):
-            cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\n\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        
-        temp = cardUser.lower()
+        cardUser = welcomePrint(state)
 
-        #Invalid swipe
-        if(cardUser == '' or not cardUser):
-            print("Invalid Swipe..... Please Swipe again")
-            clear()
-        
-        # Back to main menu
-        elif(temp == "0"):
-            state = menuLoop()
-
-        # Change the state based on input
-        elif(temp == "d" or temp == "s" or temp == "w"):
-            state = cardUser.lower()
-            completeData = False
-
-        #Manual Entry
-        elif(temp == "m"):
-            manual(checkinTime,state)
-
-        #Card was swiped
-        
-        elif cardUser[0] == '%' and cardUser[len(cardUser) -1] == '?':
-
-            #Extraction Current Swipes
-            data = data_extraction(cardUser.upper(),checkinTime)
-
-            #Input New Names and Update Information
-            update_Sheets(data, state)
-            clear()
-
-        else:
-            print("Invalid Swipe..... Please Swipe again")
-            clear()
+        parseData(cardUser,state,checkinTime)
 
 
 if __name__=="__main__":

@@ -40,12 +40,13 @@ def main():
     state = menuLoop()
 
     while True:
+        #Fast screen clear
         clear(pause=False)
+        #record time of input
         checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-
-
+        #print out the welcome message and stores input into cardUser
         cardUser = welcomePrint(state)
-
+        #passes card swipe or manual entry to parse and update spreadsheet
         parseData(cardUser,state,checkinTime)
 
 

@@ -1,5 +1,5 @@
 from TTP_SpreadSheet_Function import *
-#from cardRunnerFrontEnd import *
+from cardRunnerFrontEnd import *
 
 
 cardUser = ''
@@ -16,7 +16,7 @@ currentTitleSeminar = sheetSeminar.row_values(1)
 
 
 def main():
-    # window()
+    window()
     
     if new_title_daily != currentTitleDaily:
                 sheetDaily.delete_row(1)

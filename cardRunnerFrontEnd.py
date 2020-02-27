@@ -63,4 +63,4 @@ class Window(QtGui.QMainWindow):
       self.home()
 
    def home(self):
-
+      

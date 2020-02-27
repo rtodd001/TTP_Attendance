@@ -28,12 +28,7 @@ class Student:
     state = 1
     checkinTime = 1
 
-    #def __init__(self, fname,lname,SID,st,checkTime):
-    #    self.first = fname
-    #    self.last = lname
-    #    self.sid = SID
-    #    self.state = st
-
+    #------------------GETTER----------------#
     def getFirst(self):
         return self.first
     
@@ -48,10 +43,10 @@ class Student:
 
     def getCheckTime(self):
         return self.checkinTime
-
+    #Returns name, sid, and time as an array for Spreadsheet update
     def getSheetArray(self):
         return [self.getLast(),self.getFirst(),self.getSID(),self.getCheckTime()]
-
+    #------------------SETTER----------------#
     def setFirst(self, fname):
         self.first = fname
     
@@ -72,14 +67,14 @@ class Student:
         self.last = lname
         self.sid = sd
         self.checkinTime = cTime
-
+    #Resets the data variables
     def clearData(self):
         self.first = ""
         self.last = ""
         self.sid = 0    
 
         #clear screen
-    
+    #Clears the output screen quickly or slowly
     def clear(self,pause = True):
         #for window use 'cls'
         #for mac use 'clear'
@@ -87,15 +82,14 @@ class Student:
             sleep(1)
         system('cls' if name == 'nt' else 'clear')
         #system('clear')
-
-
+    #The main function called to make all the magic work
     def run(self):
         cardUser = self.welcomePrint()
         #record time of input
         self.setCheckTime(datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
         #passes card swipe or manual entry to parse and update spreadsheet
         self.parseData(cardUser)
-
+    #Opens the menu to change the state depending on the event at the center
     def menu(self):
         while(True):
             self.clear(pause=False)
@@ -103,6 +97,49 @@ class Student:
             if(state is '1' or state is '2' or state is '3'):
                 self.setState(state)
                 break
+
+    #Welcome print prompts
+    def welcomePrint(self):
+        # Print out the corresponding message for the state
+        state = self.getState()
+        cardUser = ''
+        if(state ==  '1'):
+            cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+        elif(state == '2'):
+            cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+        elif(state == '3'):
+            cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
+        return cardUser
+
+    #Bulk work of parsing the card swipe and then recording the data    
+    def parseData(self,cardUser):
+        # Print out the corresponding message for the state
+        temp = cardUser.lower()
+        #Invalid swipe
+        if(cardUser == '' or not cardUser):
+            print("Invalid Swipe..... Please Swipe again")
+            self.clear()
+        # Back to main menu
+        elif(temp == "0"):
+            self.menu()
+
+        #Manual Entry
+        elif(temp == "m"):
+            self.manual(self.getCheckTime())
+
+        #Card was swiped
+        elif cardUser[0] == '%' and cardUser[len(cardUser) -1] == '?':
+
+            #Extraction Current Swipes
+            self.data_extraction(cardUser.upper(),self.getCheckTime())
+
+            #Input New Names and Update Information
+            self.update_Sheets()
+            self.clear()
+
+        else:
+            print("Invalid Swipe..... Please Swipe again")
+            self.clear()
 
     #Manual Entry
     def manual(self,checkTime):
@@ -139,60 +176,7 @@ class Student:
             self.update_Sheets()
         self.clear()
 
-    #Welcome print prompts
-    def welcomePrint(self):
-        # Print out the corresponding message for the state
-        state = self.getState()
-        cardUser = ''
-        if(state ==  '1'):
-            cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        elif(state == '2'):
-            cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        elif(state == '3'):
-            cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-        return cardUser
-
-    #Bulk work of parsing the card swipe and then recording the data    
-    def parseData(self,cardUser):
-        # Print out the corresponding message for the state
-        temp = cardUser.lower()
-        #Invalid swipe
-        if(cardUser == '' or not cardUser):
-            print("Invalid Swipe..... Please Swipe again")
-            self.clear()
-        # Back to main menu
-        elif(temp == "0"):
-            self.menu()
-
-        #Manual Entry
-        elif(temp == "m"):
-            self.manual(self.getCheckTime())
-
-        #Card was swiped
-        
-        elif cardUser[0] == '%' and cardUser[len(cardUser) -1] == '?':
-
-            #Extraction Current Swipes
-            self.data_extraction(cardUser.upper(),self.getCheckTime())
-
-            #Input New Names and Update Information
-            self.update_Sheets()
-            self.clear()
-
-        else:
-            print("Invalid Swipe..... Please Swipe again")
-            self.clear()
-
-    #clear screen
-    def clear(self,pause = True):
-        #for window use 'cls'
-        #for mac use 'clear'
-        if(pause):
-            sleep(1)
-        system('cls' if name == 'nt' else 'clear')
-        #system('clear')
-
-    #Extraction Formula
+    #Extract the name and sid from the card swipe and package in the checkinTime
     def data_extraction(self,input,checkTime):
         #regular expression to delete uncessary information
         regword = re.sub("([%].*([0-9]\^))|(( *0* +\?;[0-9]).*)", '', input)
@@ -206,7 +190,7 @@ class Student:
         data.append(checkTime)
         self.setAll(data[1],data[0],data[2],data[3])
 
-    #Updating
+    #Add the collected data into the spreadsheet
     def update_Sheets(self):
         self.clear(pause=False)
         print("Welcome to TTP")

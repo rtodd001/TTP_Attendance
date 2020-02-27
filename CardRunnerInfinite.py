@@ -1,17 +1,18 @@
-from TTP_SpreadSheet_Function import *
+#from TTP_SpreadSheet_Function import *
+from Student import *
 #from cardRunnerFrontEnd import *
 
 
-cardUser = ''
+student = Student()
 
  #Title adder
-new_title_daily = sheet_title(sheetDaily.row_values(1))
+new_title_daily = student.sheet_title(sheetDaily.row_values(1))
 currentTitleDaily = sheetDaily.row_values(1)
 
-new_title_social = sheet_title(sheetSocial.row_values(1))
+new_title_social = student.sheet_title(sheetSocial.row_values(1))
 currentTitleSocial = sheetSocial.row_values(1)
 
-new_title_seminar = sheet_title(sheetSeminar.row_values(1))
+new_title_seminar = student.sheet_title(sheetSeminar.row_values(1))
 currentTitleSeminar = sheetSeminar.row_values(1)
 
 
@@ -28,7 +29,7 @@ def main():
                 sheetSeminar.delete_row(1)
                 sheetSeminar.insert_row(new_title_seminar,1)
 
-
+    student.menu()
     
     # Keep track of the current state
     # These variables will dictate the population of the Google Sheet
@@ -37,17 +38,11 @@ def main():
     # w : Seminar/Workshops
     #
     # Default is Daily/Regular days
-    state = menuLoop()
 
     while True:
         #Fast screen clear
-        clear(pause=False)
-        #record time of input
-        checkinTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-        #print out the welcome message and stores input into cardUser
-        cardUser = welcomePrint(state)
-        #passes card swipe or manual entry to parse and update spreadsheet
-        parseData(cardUser,state,checkinTime)
+        student.clear(pause=False)
+        student.run()
 
 
 if __name__=="__main__":

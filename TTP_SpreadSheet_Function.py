@@ -28,17 +28,6 @@ def menu():
         if(state is '1' or state is '2' or state is '3'):
             return state
 
-def menuLoop():
-    while(True):
-        clear(pause=False)
-        state1 = menu()
-        if(state1 == '1'):
-            return 'd'
-        elif(state1 == '2'):
-            return 's'
-        elif(state1 == '3'):
-            return 'w'            
-
 
 #Title Function
 def sheet_title(current_title):
@@ -91,11 +80,11 @@ def manual(checkinTime,state):
 #Welcome print prompts
 def welcomePrint(state):
     # Print out the corresponding message for the state
-    if(state ==  "d"):
+    if(state ==  '1'):
         cardUser = getpass("Hello! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-    elif(state == "s"):
+    elif(state == '2'):
         cardUser = getpass("Study Jam/Social sign in! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
-    elif(state == "w"):
+    elif(state == '3'):
         cardUser = getpass("Welcome to the Seminar! Please Swipe Your Card to sign in: \n\nPress 'm' and press \"Enter\" for manual entry\n\nTo return to menu press '0' and press \"Enter\"\n\n\nBy signing-in you acknowledge that you have read and agree to abide by the Engineering Transfer Center (WCH 103) Space Policies.")
     return cardUser
 
@@ -109,12 +98,7 @@ def parseData(cardUser,state,checkinTime):
     
     # Back to main menu
     elif(temp == "0"):
-        state = menuLoop()
-
-    # Change the state based on input
-    elif(temp == "d" or temp == "s" or temp == "w"):
-        state = cardUser.lower()
-        completeData = False
+        state = menu()
 
     #Manual Entry
     elif(temp == "m"):
@@ -134,6 +118,7 @@ def parseData(cardUser,state,checkinTime):
     else:
         print("Invalid Swipe..... Please Swipe again")
         clear()
+    return state
 
 
 #clear screen

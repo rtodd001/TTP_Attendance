@@ -30,14 +30,6 @@ def main():
                 sheetSeminar.insert_row(new_title_seminar,1)
 
     student.menu()
-    
-    # Keep track of the current state
-    # These variables will dictate the population of the Google Sheet
-    # d : Daily/Regular days
-    # s : Social/Study Jams 
-    # w : Seminar/Workshops
-    #
-    # Default is Daily/Regular days
 
     while True:
         #Fast screen clear

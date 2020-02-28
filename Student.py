@@ -61,7 +61,7 @@ class Student:
 
     def setCheckTime(self, cTime):
         self.checkinTime = cTime
-
+    #Does not modify the state. Only meant to set all things required for the sheets
     def setAll(self, fname,lname,sd,cTime):
         self.first = fname
         self.last = lname

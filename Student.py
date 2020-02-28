@@ -234,16 +234,15 @@ class Student:
         else:
             return current_title
 
-    #Clean Sheet (Adjust in Alphabetical order )
-    # def sheet_Cleaner(self):
-    #     currentTitle = sheet.row_values(1)
-    #     sheet.delete_row(1)
-    #     sheet_Values = sorted(sheet.get_all_values())
-    #     sheet.clear()
-    #     rowindex=1
-    #     for entry in sheet_Values:
-    #         sheet.insert_row(entry, rowindex)
-    #         rowindex +=1
-
-    #     sheet.insert_row(currentTitle, 1)
-    #     sheet.resize(len(sheet.get_all_values()))         
+    #Clean Sheet (self,Adjust in Alphabetical order)
+    def sheet_Cleaner(self, sheet):
+        currentTitle = sheet.row_values(1)
+        sheet.delete_row(1)
+        sheet_Values = sorted(sheet.get_all_values())
+        sheet.clear()
+        rowindex=1
+        for entry in sheet_Values:
+            sheet.insert_row(entry, rowindex)
+            rowindex +=1
+        sheet.insert_row(currentTitle, 1)
+        sheet.resize(len(sheet.get_all_values()))         

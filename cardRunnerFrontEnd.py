@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QLineEdit, QFormLayout
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QGridLayout
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5 import QtGui
 
 def window():
@@ -22,6 +22,7 @@ def window():
 
    textLabel = QLabel(window)
    textLabel.setText("Welcome to TPP Center")
+   textLabel.setAlignment(Qt.AlignCenter)
    # textLabel.adjustSize(16)
 
    #Form input field layout
@@ -49,18 +50,15 @@ def centerWindow(ui):
    ui.setWindowIcon(QtGui.QIcon('./img/ttpLogo.png'))
 
 #object class
-class Window(QtGui.QMainWindow):
+# class Window(QtGui.QMainWindow):
 
-   def __init__(self):
-      super(Window, self).__init__()
-      self.setGeometry(0,0,400,600)
-      self.setWindowTitle("TTP Card Scanner")
-      self.setWindowIcon(QtGui.QIcon('./img/ttpLogo.png'))
-      qr = self.frameGeometry()
-      cp = QDesktopWidget().availableGeometry().center()
-      qr.moveCenter(cp)
-      self.move(qr.topLeft())
-      self.home()
-
-   def home(self):
-      
+#    def __init__(self):
+#       super(Window, self).__init__()
+#       self.setGeometry(0,0,400,600)
+#       self.setWindowTitle("TTP Card Scanner")
+#       self.setWindowIcon(QtGui.QIcon('./img/ttpLogo.png'))
+#       qr = self.frameGeometry()
+#       cp = QDesktopWidget().availableGeometry().center()
+#       qr.moveCenter(cp)
+#       self.move(qr.topLeft())
+#       self.home()

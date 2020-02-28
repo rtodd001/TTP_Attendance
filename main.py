@@ -1,6 +1,5 @@
 from Student import *
-#from cardRunnerFrontEnd import *
-
+from cardRunnerFrontEnd import *
 
 
 student = Student()

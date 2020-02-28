@@ -1,7 +1,6 @@
 from Student import *
 from cardRunnerFrontEnd import *
 
-
 student = Student()
 
  #Title adder
@@ -28,11 +27,13 @@ def main():
                 sheetSeminar.delete_row(1)
                 sheetSeminar.insert_row(new_title_seminar,1)
 
+    #Initiailze the state on boot
     student.menu()
 
     while True:
         #Fast screen clear
         student.clear(pause=False)
+        #Run the card swiping program
         student.run()
 
 
